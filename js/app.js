@@ -40,7 +40,7 @@ function handleListResponse(data) {
     prevPage = data.prevPageToken || null;
     var html = '<div class="row">';
     for (var i = 0; i < data.items.length; i++) {
-        html += '<div class="col-2"><img src="' +
+        html += '<div class="col-3"><img src="' +
             data.items[i].snippet.thumbnails.medium.url +
             '"></div>';
     }
