@@ -2,18 +2,10 @@ var API_KEY = "AIzaSyDQ6iEJPREVbNl-z1krbf3eNIjCATu5aBk";
 var ENDPOINT = "https://www.googleapis.com/youtube/v3/search";
 var MAX_RESULTS = 12 * 4;
 var nextPage;
-var prevPage;
 
 $(function () {
     $("#js-search-form").submit(startSearch);
-    $("#js-next").click(function (event) {
-        event.preventDefault();
-        submitSearch(nextPage);
-    });
-    $("#js-previous").click(function (event) {
-        event.preventDefault();
-        submitSearch(prevPage);
-    });
+    $(".js-container").on("click", ".js-next-page", getMoreResults);
 });
 
 function startSearch(event) {
@@ -21,10 +13,13 @@ function startSearch(event) {
     submitSearch();
 }
 
+function getMoreResults(event) {
+    event.preventDefault();
+    submitSearch(nextPage);
+}
+
 function submitSearch(page) {
-    $(".js-pagination").prop("disabled", true);
     $("#js-search-form").children().prop("disabled", true);
-    $(".js-container").empty();
     var q = {
         key: API_KEY,
         part: "snippet",
@@ -32,12 +27,14 @@ function submitSearch(page) {
         maxResults: MAX_RESULTS
     };
     if (page) { q.pageToken = page; }
+    else { $(".js-container").empty(); }
     $.getJSON(ENDPOINT, q, handleListResponse);
 }
 
 function handleListResponse(data) {
+    $(".js-next-page").remove();
+
     nextPage = data.nextPageToken || null;
-    prevPage = data.prevPageToken || null;
     var html = '<div class="row">';
     for (var i = 0; i < data.items.length; i++) {
         html += '<div class="col-3"><img src="' +
@@ -48,8 +45,11 @@ function handleListResponse(data) {
         }
     }
     html += '</div>';
-    $(".js-container").html(html);
+
+    if (nextPage) {
+        html += '<div class="row"><div class="col-12"><a href="#" class="next-page js-next-page">More</a></div></div>';
+    }
+
+    $(".js-container").append(html);
     $("#js-search-form").children().prop("disabled", false);
-    $("#js-previous").prop("disabled", !prevPage);
-    $("#js-next").prop("disabled", !nextPage);
 }
