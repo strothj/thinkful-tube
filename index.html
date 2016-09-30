@@ -6,14 +6,43 @@
     <meta name="description" content="Search Youtube for videos.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/b75bd924b5.css">
     <link rel="stylesheet" href="css/grid.css">
     <link rel="stylesheet" href="css/main.css">
     <title>Thinkful Tube - Youtube Search</title>
 </head>
 
 <body>
-
     <header>
+        <div class="header-centered">
+            <h1>Thinkful Tube</h1>
+            <form action="#" id="js-search-form">
+                <input type="text" id="js-search-query">
+                <button type="submit">
+                    <span href="#" id="js-search-icon">&#xf002;</span>
+                </button>
+            </form>
+        </div>
+    </header>
+
+    <main>
+       <div class="js-container"></div> 
+    </main>
+
+    <!--
+    <header>
+        <h1>Thinkful Tube</h1>
+        <div class="search-container">
+            <form action="#" id="js-search-form" class="search-box-form">
+                <input type="text" id="js-search-query">
+                <button type="submit">
+                    <span href="#" id="js-search-icon" class="search-icon">&#xf002;</span>
+                </button>
+            </form>
+        </div>
+    </header>-->
+
+    <!--<header>
         <div class="row">
             <div class="col-2 header">
                 <h1>Thinkful Tube</h1>
@@ -25,16 +54,17 @@
                 </form>
             </div>
         </div>
-    </header>
+    </header>-->
 
-    <nav>
+    <!--<nav>
         <div class="row nav">
             <div class="col-2"><button disabled class="js-pagination" id="js-previous">&lt; Previous</button></div>
             <div class="col-2"><button disabled class="js-pagination" id="js-next">Next &gt;</button></div>
         </div>
     </nav>
 
-    <div class="js-container"></div>
+    <div class="js-container"></div>-->
+
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
         crossorigin="anonymous"></script>

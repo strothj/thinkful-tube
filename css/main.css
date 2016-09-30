@@ -1,28 +1,58 @@
 @import 'https://fonts.googleapis.com/css?family=Roboto';
+@import 'https://fonts.googleapis.com/css?family=Lalezar';
 
-.header {
+body {
+    background: url("../images/background.jpg") fixed no-repeat;
+    background-size: cover;
+
+}
+
+header {
+    background-color: black;
+    color: white;
+    font-family: 'Lalezar', cursive;
+    position: fixed;
     width: 100%;
-    text-align: center;
     padding-bottom: 10px;
 }
 
-.header h1 {
-    font-size: 26px;
-    font-weight: normal;
+.header-centered {
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
-.search {
-    padding-top: 5px;
-    padding-bottom: 5px;
+.header-centered h1 {
+    margin: 0;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+.header-centered form {
+    font-family: FontAwesome;
+}
+
+.header-centered button {
+    border-style: none;
+    background-color: rgba(0,0,0,0);
+    color: white;
+}
+
+.header-centered input {
+    font-family: 'Roboto', sans-serif;
+    margin-left: 10px;
+    width: 85%;
+}
+
+main {
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.8),
+        rgba(0, 0, 0, 0.8)
+    );
+    max-width: 1000px;
+    min-height: 100vh;
     width: 100%;
-}
-
-.nav {
-    padding-bottom: 10px;
-}
-
-.nav button {
-    width: 100%;
+    margin: 0 auto;
+    padding-top: 100px;
 }
 
 img {

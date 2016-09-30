@@ -1,6 +1,6 @@
 var API_KEY = "AIzaSyDQ6iEJPREVbNl-z1krbf3eNIjCATu5aBk";
 var ENDPOINT = "https://www.googleapis.com/youtube/v3/search";
-var MAX_RESULTS = 12;
+var MAX_RESULTS = 12 * 4;
 var nextPage;
 var prevPage;
 
@@ -43,6 +43,9 @@ function handleListResponse(data) {
         html += '<div class="col-3"><img src="' +
             data.items[i].snippet.thumbnails.medium.url +
             '"></div>';
+        if ((i + 1) % 12 === 0) {
+            html += '</div><div class="row">';
+        }
     }
     html += '</div>';
     $(".js-container").html(html);
