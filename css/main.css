@@ -1,6 +1,10 @@
 @import 'https://fonts.googleapis.com/css?family=Roboto';
 
-.top-section-wrapper__top-navbar-wrapper {
+* {
+    box-sizing: border-box;
+}
+
+.top-section-wrapper__top-navbar {
     position: fixed;
     top: 0;
     left: 0;
@@ -13,9 +17,42 @@
     box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.2);
 }
 
-.top-navbar__logo-image {
+.top-navbar__logo-wrapper {
     padding: 12px 0;
+}
+
+.top-navbar-logo-wrapper__logo-image {
     height: 24px;
+}
+
+.top-navbar__top-search-box {
+    position: absolute;
+    width: 200px;
+    right: 24px;
+    top: 6px;
+    bottom: 6px;
+}
+
+.top-search-box__search_query {
+    position: relative;
+    width: 200px;
+    border: none;
+    padding: 8px 8px 8px 72px;
+    font-size: 16px;
+    line-height: 20px;
+    border-radius: 2px;
+    background-color: #64B5F6;
+    color: white;
+}
+
+.top-search-box__search_icon::before {
+    position: absolute;
+    top: 6px;
+    left: 24px;
+    font-family: 'Material Icons';
+    line-height: 24px;
+    content: 'search';
+    color: white;
 }
 
 /*@import 'https://fonts.googleapis.com/css?family=Lalezar';
