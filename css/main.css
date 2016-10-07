@@ -31,6 +31,7 @@
     right: 24px;
     top: 6px;
     bottom: 6px;
+    color: white;
 }
 
 .top-search-box__search_query {
@@ -42,7 +43,7 @@
     line-height: 20px;
     border-radius: 2px;
     background-color: #64B5F6;
-    color: white;
+    color: inherit;
 }
 
 .top-search-box__search_icon::before {
@@ -52,8 +53,11 @@
     font-family: 'Material Icons';
     line-height: 24px;
     content: 'search';
-    color: white;
 }
+/*
+.top-search-box__search_icon::before:focus {
+    color: black;
+}*/
 
 /*@import 'https://fonts.googleapis.com/css?family=Lalezar';
 
