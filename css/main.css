@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+.page-wrapper__page-content {
+    font-family: Roboto;
+}
+
 .top-section-wrapper__top-navbar {
     position: fixed;
     top: 0;
@@ -54,83 +58,36 @@
     line-height: 24px;
     content: 'search';
 }
-/*
-.top-search-box__search_icon::before:focus {
-    color: black;
-}*/
 
-/*@import 'https://fonts.googleapis.com/css?family=Lalezar';
-
-body {
-    background: url("../images/background.jpg") fixed no-repeat;
-    background-size: cover;
-    font-family: 'Roboto', sans-serif;
+.main-section__tile-container {
+    margin-top: 55px;
 }
 
-header {
-    background-color: black;
+.tile-container__tile-wrapper {
     color: white;
-    font-family: 'Lalezar', cursive;
-    position: fixed;
+    background-color: #2196F3;
+    margin-bottom: 2.7777778%;
+}
+
+.tile-container__tile-thumbnail {
     width: 100%;
-    padding-bottom: 10px;
 }
 
-.header-centered {
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-.header-centered h1 {
+.tile-container__tile-title {
+    padding: 16px 56px 0 16px;
     margin: 0;
-    padding-top: 10px;
-    padding-left: 10px;
+    font-size: 16px;
+    font-weight: normal;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.header-centered form {
-    font-family: FontAwesome;
+.tile-container__tile-desc {
+    padding: 2px 56px 16px 16px;
+    margin: 0;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
-
-.header-centered button {
-    border-style: none;
-    background-color: rgba(0,0,0,0);
-    color: white;
-}
-
-.header-centered input {
-    font-family: 'Roboto', sans-serif;
-    margin-left: 10px;
-    width: 85%;
-}
-
-main {
-    background: linear-gradient(
-        rgba(0, 0, 0, 0.8),
-        rgba(0, 0, 0, 0.8)
-    );
-    max-width: 1000px;
-    min-height: 100vh;
-    width: 100%;
-    margin: 0 auto;
-    padding-top: 100px;
-}
-
-img {
-    width: 100%;
-}
-
-.next-page {
-    display: block;
-    width: 100%;
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    text-align: center;
-    border: 1px white solid;
-}
-
-.next-page::hover {
-    text-decoration: underline;
-}*/

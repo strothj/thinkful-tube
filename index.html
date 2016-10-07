@@ -6,7 +6,6 @@
     <meta name="description" content="Search Youtube for videos.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
-    <!--<link rel="stylesheet" href="https://use.fontawesome.com/b75bd924b5.css">-->
     <link rel="stylesheet" href="css/grid.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
@@ -14,33 +13,24 @@
     <title>Thinkful Tube - Youtube Search</title>
 </head>
 
-<body>
-    <header class="top-section-wrapper">
-        <div class="top-navbar top-section-wrapper__top-navbar">
-            <div class="top-navbar-logo-wrapper top-navbar__logo-wrapper">
-                <img class="top-navbar-logo-wrapper__logo-image" src="images/logo.svg">
+<body class="page-wrapper">
+    <div class="page-wrapper__page-content">
+        <header class="top-section-wrapper">
+            <div class="top-navbar top-section-wrapper__top-navbar">
+                <div class="top-navbar-logo-wrapper top-navbar__logo-wrapper">
+                    <img class="top-navbar-logo-wrapper__logo-image" src="images/logo.svg">
+                </div>
+                <form class="top-search-box top-navbar__top-search-box" id="js-search-form">
+                <input type="text" class="top-search-box__search_query" id="js-search-query">
+                <div class="top-search-box__search_icon material-icons"></div>
+                </form>
             </div>
-            <form class="top-search-box top-navbar__top-search-box" id="js-search-form">
-               <input type="text" class="top-search-box__search_query" id="js-search-query">
-               <div class="top-search-box__search_icon material-icons"></div>
-            </form>
-        </div>
-    </header>
-    <!--<header>
-        <div class="header-centered">
-            <h1>Thinkful Tube</h1>
-            <form action="#" id="js-search-form">
-                <input type="text" id="js-search-query">
-                <button type="submit">
-                    <span href="#" id="js-search-icon">&#xf002;</span>
-                </button>
-            </form>
-        </div>
-    </header>-->
+        </header>
 
-    <main>
-       <div class="js-container"></div> 
-    </main>
+        <main class="main-section">
+        <div class="tile-container main-section__tile-container" id="js-container"></div> 
+        </main>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
         crossorigin="anonymous"></script>

@@ -3,16 +3,40 @@ var ENDPOINT = 'https://www.googleapis.com/youtube/v3/search';
 var MAX_RESULTS = 12 * 4;
 var nextPage;
 
-function handleListResponse(data) {
+function YouTubeVideo(videoId, channelId, title, desc, thumbLink) {
+  this.videoId = videoId;
+  this.channelId = channelId;
+  this.title = title;
+  this.desc = desc;
+  this.thumbLink = thumbLink;
+}
+
+YouTubeVideo.prototype.renderHTML = function renderHTML() {
+  var html = '<article class="col-3">' +
+    '<div class="tile-container__tile-wrapper">' +
+      '<img class="tile-container__tile-thumbnail" src="' + this.thumbLink + '">' +
+      '<div class="tile-container__tile-footer">' +
+        '<h1 class="tile-container__tile-title">' + this.title + '</h1>' +
+        '<p class="tile-container__tile-desc">' + this.desc + '</p>' +
+      '</div>' +
+    '</div>' +
+    '</article>';
+  return html;
+};
+
+function SearchResult(videos, nextPageToken) {
+  this.videos = videos;
+  this.nextPageToken = nextPageToken;
+}
+
+function handleListResponse(searchResult) {
   $('.js-next-page').remove();
 
-  nextPage = data.nextPageToken || null;
+  nextPage = searchResult.nextPageToken || null;
   var html = '<div class="row">';
-  for (var i = 0; i < data.items.length; i++) {
-    html += '<div class="col-3"><img src="' +
-            data.items[i].snippet.thumbnails.medium.url +
-            '"></div>';
-    if ((i + 1) % 12 === 0) {
+  for (var i = 0; i < searchResult.videos.length; i++) {
+    html += searchResult.videos[i].renderHTML();
+    if ((i + 1) % 4 === 0) {
       html += '</div><div class="row">';
     }
   }
@@ -22,7 +46,7 @@ function handleListResponse(data) {
     html += '<div class="row"><div class="col-12"><a href="#" class="next-page js-next-page">More</a></div></div>';
   }
 
-  $('.js-container').append(html);
+  $('#js-container').append(html);
   $('#js-search-form').children().prop('disabled', false);
 }
 
@@ -32,14 +56,25 @@ function submitSearch(page) {
     key: API_KEY,
     part: 'snippet',
     q: $('#js-search-query').val(),
+    type: 'video',
     maxResults: MAX_RESULTS
   };
   if (page) {
     q.pageToken = page;
   } else {
-    $('.js-container').empty();
+    $('#js-container').empty();
   }
-  $.getJSON(ENDPOINT, q, handleListResponse);
+  $.getJSON(ENDPOINT, q, function createSearchResult(data) {
+    var videos = data.items.map(function createVideoElement(item) {
+      return new YouTubeVideo(
+        item.id.videoId,
+        item.snippet.channelId,
+        item.snippet.title,
+        item.snippet.description,
+        item.snippet.thumbnails.medium.url);
+    });
+    handleListResponse(new SearchResult(videos, data.nextPageToken));
+  });
 }
 
 function startSearch(event) {
@@ -54,5 +89,5 @@ function getMoreResults(event) {
 
 $(function main() {
   $('#js-search-form').submit(startSearch);
-  $('.js-container').on('click', '.js-next-page', getMoreResults);
+  $('#js-container').on('click', '.js-next-page', getMoreResults);
 });
