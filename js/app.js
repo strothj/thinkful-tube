@@ -13,8 +13,7 @@ function YouTubeVideo(videoId, channelId, title, desc, thumbLink) {
 
 YouTubeVideo.prototype.renderHTML = function renderHTML() {
   var html = '<article class="col-3">' +
-    '<div class="tile-container__tile-wrapper">' +
-      '<img class="tile-container__tile-thumbnail" src="' + this.thumbLink + '">' +
+    '<div class="tile-container__tile-wrapper" style="background-image: url(\'' + this.thumbLink + '\')">' +
       '<div class="tile-container__tile-footer">' +
         '<h1 class="tile-container__tile-title">' + this.title + '</h1>' +
         '<p class="tile-container__tile-desc">' + this.desc + '</p>' +
@@ -75,6 +74,7 @@ function submitSearch(page) {
     });
     handleListResponse(new SearchResult(videos, data.nextPageToken));
   });
+  $('#js-search-query').val('');
 }
 
 function startSearch(event) {
@@ -90,4 +90,10 @@ function getMoreResults(event) {
 $(function main() {
   $('#js-search-form').submit(startSearch);
   $('#js-container').on('click', '.js-next-page', getMoreResults);
+  $('#js-search-query').focus(function() {
+    $('#js-search-form').toggleClass('header-search__form_expanded');
+  });
+  $('#js-search-query').blur(function() {
+    $('#js-search-form').toggleClass('header-search__form_expanded');
+  });
 });
