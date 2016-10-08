@@ -2,6 +2,7 @@ var API_KEY = 'AIzaSyDQ6iEJPREVbNl-z1krbf3eNIjCATu5aBk';
 var ENDPOINT = 'https://www.googleapis.com/youtube/v3/search';
 var MAX_RESULTS = 12 * 4;
 var nextPage;
+var lastQuery;
 
 function YouTubeVideo(videoId, channelId, title, desc, thumbLink) {
   this.videoId = videoId;
@@ -13,12 +14,15 @@ function YouTubeVideo(videoId, channelId, title, desc, thumbLink) {
 
 YouTubeVideo.prototype.renderHTML = function renderHTML() {
   var html = '<article class="col-3">' +
+    '<a href="#" class="js-video-link" id="' + this.videoId + '">' +
     '<div class="tile-container__tile-wrapper" style="background-image: url(\'' + this.thumbLink + '\')">' +
       '<div class="tile-container__tile-footer">' +
         '<h1 class="tile-container__tile-title">' + this.title + '</h1>' +
         '<p class="tile-container__tile-desc">' + this.desc + '</p>' +
+        '<div class="tile-container__channel-icon"></div>' +
       '</div>' +
     '</div>' +
+    '</a>' +
     '</article>';
   return html;
 };
@@ -29,8 +33,6 @@ function SearchResult(videos, nextPageToken) {
 }
 
 function handleListResponse(searchResult) {
-  $('.js-next-page').remove();
-
   nextPage = searchResult.nextPageToken || null;
   var html = '<div class="row">';
   for (var i = 0; i < searchResult.videos.length; i++) {
@@ -40,10 +42,6 @@ function handleListResponse(searchResult) {
     }
   }
   html += '</div>';
-
-  if (nextPage) {
-    html += '<div class="row"><div class="col-12"><a href="#" class="next-page js-next-page">More</a></div></div>';
-  }
 
   $('#js-container').append(html);
   $('#js-search-form').children().prop('disabled', false);
@@ -60,9 +58,11 @@ function submitSearch(page) {
   };
   if (page) {
     q.pageToken = page;
+    q.q = lastQuery;
   } else {
     $('#js-container').empty();
   }
+  lastQuery = q.q;
   $.getJSON(ENDPOINT, q, function createSearchResult(data) {
     var videos = data.items.map(function createVideoElement(item) {
       return new YouTubeVideo(
@@ -88,6 +88,7 @@ function getMoreResults(event) {
 }
 
 $(function main() {
+  var lightbox = $('#js-lightbox');
   $('#js-search-form').submit(startSearch);
   $('#js-container').on('click', '.js-next-page', getMoreResults);
   $('#js-search-query').focus(function() {
@@ -95,5 +96,24 @@ $(function main() {
   });
   $('#js-search-query').blur(function() {
     $('#js-search-form').toggleClass('header-search__form_expanded');
+  });
+  $('#js-container').on('click', '.js-video-link', function(event) {
+    event.preventDefault();
+    var id = $(this).attr('id');
+    var html = '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + id + '" frameborder="0" allowfullscreen></iframe>';
+    lightbox.append(html);
+    lightbox.toggleClass('lightbox_visible');
+  });
+  lightbox.click('#js-lightbox-dismiss', function(event) {
+    event.preventDefault();
+    lightbox.toggleClass('lightbox_visible');
+    lightbox.empty();
+  });
+  $(window).on('scroll', function() {
+    if ($(window).scrollTop() + $(window).height() === $(document).height()) {
+      if (nextPage) {
+        submitSearch(nextPage);
+      }
+    }
   });
 });
