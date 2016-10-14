@@ -4,13 +4,17 @@
   "description": "",
   "main": "js/app.js",
   "scripts": {
-      "mkdir": "mkdir -p build/css build/js",
-      "build": "npm run clean && npm run mkdir && npm run jquery:vendor && npm run normalize:vendor",
-      "clean": "rm -rf build",
-      "jquery:vendor": "npm run jquery:clean && cp node_modules/jquery/dist/jquery.min.js build/js",
-      "jquery:clean": "rm -f build/js/jquery.min.js",
-      "normalize:vendor": "npm run normalize:clean && cp node_modules/normalize.css/normalize.css build/css",
-      "normalize:clean": "rm -f build/css/normalize.css"
+    "mkdir": "mkdir -p build/css build/js",
+    "build": "npm run clean && npm run mkdir && npm run vendor:jquery && npm run vendor:normalize && npm run build:css",
+    "clean": "rm -rf build",
+    "watch": "npm run watch:css",
+    "build:css": "npm run clean:css && lessc --source-map css/index.less build/css/$npm_package_name.$npm_package_version.css",
+    "watch:css": "npm run build:css && chokidar 'css/**/*.less' -c 'npm run build:css'",
+    "clean:css": "rm -f build/css/$npm_package_name.$npm_package_version.css build/css/$npm_package_name.$npm_package_version.css.map",
+    "vendor:jquery": "npm run clean:jquery && cp node_modules/jquery/dist/jquery.min.js build/js",
+    "clean:jquery": "rm -f build/js/jquery.min.js",
+    "vendor:normalize": "npm run clean:normalize && cp node_modules/normalize.css/normalize.css build/css",
+    "clean:normalize": "rm -f build/css/normalize.css"
   },
   "repository": {
     "type": "git",
@@ -23,8 +27,10 @@
   },
   "homepage": "https://github.com/strothj/thinkful-tube#readme",
   "devDependencies": {
+    "chokidar-cli": "^1.2.0",
     "eslint": "^3.7.1",
-    "eslint-config-es5": "^0.5.0"
+    "eslint-config-es5": "^0.5.0",
+    "less": "^2.7.1"
   },
   "dependencies": {
     "jquery": "^3.1.1",
