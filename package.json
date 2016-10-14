@@ -4,7 +4,13 @@
   "description": "",
   "main": "js/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+      "mkdir": "mkdir -p build/css build/js",
+      "build": "npm run clean && npm run mkdir && npm run jquery:vendor && npm run normalize:vendor",
+      "clean": "rm -rf build",
+      "jquery:vendor": "npm run jquery:clean && cp node_modules/jquery/dist/jquery.min.js build/js",
+      "jquery:clean": "rm -f build/js/jquery.min.js",
+      "normalize:vendor": "npm run normalize:clean && cp node_modules/normalize.css/normalize.css build/css",
+      "normalize:clean": "rm -f build/css/normalize.css"
   },
   "repository": {
     "type": "git",
