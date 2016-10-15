@@ -1,16 +1,17 @@
 @import 'https://fonts.googleapis.com/css?family=Roboto';
 
-* {
-    box-sizing: border-box;
-}
-
-.body__contents {
+.body {
+  &__contents {
     font-family: Roboto;
     background-color: black;
     min-height: 100vh;
+  }
 }
 
-.header__contents {
+@header-bar-height: 48px;
+
+.header {
+  &__contents {
     position: fixed;
     left: 0px;
     top: 0px;
@@ -19,6 +20,7 @@
     z-index: 1;
     padding: 0 24px;
     box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.2);
+  }
 }
 
 .header-contents {
@@ -74,7 +76,7 @@
 }
 
 .header-search__form_expanded {
-    width: 100%; 
+    width: 100%;
     color: black;
 }
 
